@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ajaia Docs Lite
 
-## Getting Started
+A lightweight collaborative doc editor inspired by Google Docs.
 
-First, run the development server:
+## Features
+
+- Create and edit documents in-browser
+- Bold / italic / underline / headings / lists via rich text toolbar
+- Persistent storage using local file DB (`data/docs.json` and `data/users.json`)
+- File upload: `.txt` and `.md` import as doc content
+- Sharing: owner can share docs with other seeded users
+- Owned/shared document splits
+- Mock login via user dropdown (Alice, Bob, Carol)
+
+## Setup
+
+Required: Node.js 18+ (tested on 18.20.8). The project also works on Node 20 with latest Next behavior.
 
 ```bash
+cd c:\ajaia-llc-assignment
+npm install --legacy-peer-deps
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you use a Node 20+ environment, standard `npm install` works without `--legacy-peer-deps`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open `http://localhost:3000`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API
 
-## Learn More
+- `GET /api/users` list users
+- `GET /api/docs?userId=...` list owned + shared docs
+- `POST /api/docs` create doc
+- `PUT /api/docs/:docId` update doc
+- `DELETE /api/docs/:docId` delete doc
+- `POST /api/docs/:docId/share` share doc
 
-To learn more about Next.js, take a look at the following resources:
+## Test
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm test
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What works
 
-## Deploy on Vercel
+- Document creation, editing, rename, save, reopen
+- Rich text toolbar commands for style
+- File import from .txt/.md
+- Sharing and distinguishing owned/shared docs
+- Data persistence through JSON files
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Known limitations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- No real multi-user auth; dropdown user switch simulates accounts
+- Editor uses contentEditable + `document.execCommand` for speed
+- No real-time live collaboration (stretch goal)
+
