@@ -47,7 +47,11 @@ npm test
 - Rich text toolbar commands for style
 - File import from .txt/.md
 - Sharing and distinguishing owned/shared docs
-- Data persistence through JSON files
+- Data persistence through JSON files (local dev)
+
+## Read-only deployment note
+
+In environments with read-only filesystem (e.g., Vercel serverless), the app falls back to in-memory document state in `lib/data.ts` (document operations still succeed for the current VM lifetime, but do not persist across cold starts). For local development, it persists to `data/docs.json`. 
 
 ## Known limitations
 
